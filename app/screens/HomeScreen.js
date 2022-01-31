@@ -41,6 +41,8 @@ export default function HomeScreen() {
   }
 
   function loadMoreTweetsM() {
+    if(Platform.OS === 'android')   ToastAndroid.show("Looking for more🔎", ToastAndroid.SHORT)
+    else                            AlertIOS.alert("Looking for more🔎") 
     let lastTweetId = listData[listData.length - 1].id;
 
     loadMoreTweets(lastTweetId, mUserId, (list, includes) => {
@@ -91,12 +93,12 @@ export default function HomeScreen() {
             if(Platform.OS === 'android')
               ToastAndroid.show("No Username entered", ToastAndroid.SHORT)
             else                                      
-              AlertIOS.alert()  
+              AlertIOS.alert("No Username entered")  
           } 
             }}/>
       </View>
 
-      <View>
+      <View style={styles.flatListRootView}>
         <FlatList data={listData} renderItem={renderItem} onEndReached={loadMoreTweetsM} style={styles.flatList} showsVerticalScrollIndicator={false}/>
       </View>
       
@@ -148,5 +150,8 @@ const styles = StyleSheet.create({
     flex              : 1,
     justifyContent    : 'center',
     alignItems        : 'center',
+  },
+  flatListRootView :{
+    flex : 1,
   }
 });

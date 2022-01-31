@@ -31,7 +31,7 @@ export async function getIdByUsername(username, onCompleteListenerFun) {
 
 export async function getUserTweetTimelineById(data, onCompleteListenerFun) {
   try {
-    let response = await fetch(`https://api.twitter.com/2/users/${data.getId()}/tweets?exclude=replies,retweets&tweet.fields=attachments&expansions=attachments.media_keys&media.fields=url&max_results=20`,
+    let response = await fetch(`https://api.twitter.com/2/users/${data.getId()}/tweets?exclude=replies,retweets&tweet.fields=attachments&expansions=attachments.media_keys&media.fields=url&max_results=50`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${Constants.BearerToken}` }
@@ -56,7 +56,7 @@ export async function getUserTweetTimelineById(data, onCompleteListenerFun) {
 
 export async function loadMoreTweets(lastTweetId, userId, callBackFunction) {
   try {
-    let response = await fetch(`https://api.twitter.com/2/users/${userId}/tweets?exclude=replies,retweets&tweet.fields=attachments&expansions=attachments.media_keys&media.fields=url&max_results=20&until_id=${lastTweetId}`,
+    let response = await fetch(`https://api.twitter.com/2/users/${userId}/tweets?exclude=replies,retweets&tweet.fields=attachments&expansions=attachments.media_keys&media.fields=url&max_results=50&until_id=${lastTweetId}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${Constants.BearerToken}` }
