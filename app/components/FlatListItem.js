@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Colors from '../Constants/Colors.js'
 import {View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 
 
 export function FlatListItem(props) {
+  let [w, updateW] = useState(100)
+  let [h, updateH] = useState(100)
   let item = props.item;
   if (item.attachments == undefined)                return getTextComponent(item.text)
   else {
@@ -12,8 +14,8 @@ export function FlatListItem(props) {
 
     for (let i = 0; i < props.media.length; i++)
       if (props.media[i].media_key == mediaKey)     { var data = props.media[i]; break; }
-
-    if (data != undefined && data.type == 'photo')  return getImageAndTextComponent(item.text, data.url);
+    
+    if (data != undefined && data.type == 'photo')  return getImageAndTextComponent(item.text, data.url, w, h);
     else                                            return getTextComponent(item.text);
   }
 }
@@ -26,12 +28,19 @@ function getTextComponent(text) {
   )
 }
 
-function getImageAndTextComponent(text, imageUri) {
+function getImageAndTextComponent(text, imageUri, w, h) {
   return (
     <View style={styles.root}>
       <Text style={styles.text}>{text}</Text>
-      <View style={styles.temp}>
-      <Image style={styles.imageView} source={{uri: imageUri}} />
+      <View style={{ 
+        flex: 1,
+      }}>
+      <Image source={{uri: imageUri}} style={{
+          width: '100%',
+          height: undefined,
+          aspectRatio: 1,
+
+      }} />
       </View>
     </View>
   );
@@ -64,8 +73,4 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1.5
   },
-  temp : {
-    width: '100%',
-    flex: 1
-  }
 })
