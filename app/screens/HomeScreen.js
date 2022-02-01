@@ -79,7 +79,7 @@ export default function HomeScreen() {
       </View>
 
       <View>
-        <TextInput style={styles.textInput} value={usernameText} onChangeText={text => {updateUserNameText(text)}}/> 
+        <TextInput placeholder="Enter username without @" placeholderTextColor="#ffffff" style={styles.textInput} value={usernameText} onChangeText={text => {updateUserNameText(text)}}/> 
       </View>
 
       <View style={styles.buttonRootView}>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     marginHorizontal  : 20,
     marginTop         :10,
     color             : Colors.whiteColor,
-    fontSize          : 20
+    fontSize          : 20,
   },
   buttonRootView      : {
     marginHorizontal  : 20,
